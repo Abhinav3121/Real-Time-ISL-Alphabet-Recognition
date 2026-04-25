@@ -7,27 +7,6 @@ MediaPipe for hand landmark detection and a TensorFlow/Keras
 neural network for classification. The app streams live webcam
 video through a Flask web interface and predicts ISL signs.
 
-
-----------------------------------------------------------------
-  PROJECT STRUCTURE
-----------------------------------------------------------------
-
-  isl-recognition/
-  ├── ISL_Data/               # Training images (one subfolder per sign)
-  │   ├── A/
-  │   ├── B/
-  │   └── ...
-  ├── static/                 # Flask static assets (CSS, JS, images)
-  ├── templates/
-  │   └── index.html          # Frontend template for the web app
-  ├── collect_data.py         # Step 1: Capture training images via webcam
-  ├── process_data.py         # Step 2: Extract hand landmarks from images
-  ├── model_training.txt      # Step 3: Model training script (run in Colab)
-  ├── app.py                  # Step 4: Flask app for real-time prediction
-  ├── landmarks.csv           # Generated landmark feature file
-  └── isl_model.h5            # Trained Keras model
-
-
 ----------------------------------------------------------------
   REQUIREMENTS
 ----------------------------------------------------------------
