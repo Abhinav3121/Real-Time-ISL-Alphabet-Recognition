@@ -1,5 +1,3 @@
-# Real-Time-ISL-Alphabet-Recognition
-Mini-Project
 ================================================================
   Real-Time ISL Alphabet Recognition System
 ================================================================
