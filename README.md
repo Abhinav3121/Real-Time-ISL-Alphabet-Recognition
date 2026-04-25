@@ -1,6 +1,6 @@
-================================================================
+
   Real-Time ISL Alphabet Recognition System
-================================================================
+
 
 A real-time Indian Sign Language recognition system using
 MediaPipe for hand landmark detection and a TensorFlow/Keras
