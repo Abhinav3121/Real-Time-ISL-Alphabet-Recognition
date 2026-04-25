@@ -1,0 +1,71 @@
+/* General Body Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Header Styles */
+header {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #005f73;
+}
+
+header h2 {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+    color: #0a9396;
+    font-weight: 400;
+}
+
+/* Main Content Styles */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Video Container Styles */
+#video-container {
+    border: 8px solid #005f73;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1), 0 6px 6px rgba(0,0,0,0.15);
+    background-color: #000;
+    line-height: 0; /* Prevents extra space under the img element */
+}
+
+#video-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Footer Styles */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px 0;
+    background-color: #343a40;
+    color: #f8f9fa;
+    font-size: 0.9rem;
+}
+

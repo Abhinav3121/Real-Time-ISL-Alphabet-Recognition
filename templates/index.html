@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISL Alphabet Detection</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Real-Time ISL Alphabet Recognition</h1>
+       
+    </header>
+    <main>
+        <div id="video-container">
+            <!-- The video stream from the Flask backend will be displayed here -->
+            <img src="{{ url_for('video_feed') }}" width="800" height="600" alt="Live ISL Recognition Feed">
+        </div>
+    </main>
+    <footer>
+     
+    </footer>
+</body>
+</html>

@@ -1,0 +1,91 @@
+# 1. Import Necessary Libraries
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.utils import to_categorical
+
+print("Libraries imported successfully!")
+
+# 2. Load the Dataset
+# Make sure your 'landmarks.csv' file is uploaded to the Colab session
+try:
+    df = pd.read_csv('landmarks.csv')
+    print("Dataset loaded successfully!")
+    print("Dataset shape:", df.shape)
+    print("First 5 rows:\n", df.head())
+except FileNotFoundError:
+    print("Error: 'landmarks.csv' not found. Please make sure you have uploaded the file.")
+    exit()
+
+# 3. Prepare the Data for Training
+# Separate features (the landmark coordinates) from the labels (the sign names)
+X = df.drop('label', axis=1) # Features are all columns except 'label'
+y = df['label']              # Labels are in the 'label' column
+
+# --- Label Encoding: Convert text labels ('A', 'B', 'C') into numbers (0, 1, 2) ---
+label_encoder = LabelEncoder()
+y_encoded = label_encoder.fit_transform(y)
+
+# --- One-Hot Encoding: Convert numerical labels into a format suitable for the model ---
+# Example: If you have 8 classes (A-H), 'A'(0) becomes [1,0,0,0,0,0,0,0], 'B'(1) becomes [0,1,0,0,0,0,0,0]
+num_classes = len(np.unique(y_encoded))
+y_categorical = to_categorical(y_encoded, num_classes=num_classes)
+
+# --- Split the data into training and testing sets (80% for training, 20% for testing) ---
+X_train, X_test, y_train, y_test = train_test_split(X, y_categorical, test_size=0.2, random_state=42, stratify=y_categorical)
+
+print(f"\nData prepared for training!")
+print(f"Number of classes (signs): {num_classes}")
+print(f"X_train shape: {X_train.shape}")
+print(f"X_test shape: {X_test.shape}")
+
+
+# 4. Build the Neural Network Model
+model = keras.Sequential([
+    # The input layer expects a flat list of 84 numbers (42 landmarks * 2 coordinates)
+    keras.layers.Input(shape=(X_train.shape[1],)),
+
+    # Hidden layers with Dropout for regularization (to prevent overfitting)
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dropout(0.3),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dropout(0.3),
+
+    # The output layer has one neuron for each class.
+    # 'softmax' activation gives a probability for each class.
+    keras.layers.Dense(num_classes, activation='softmax')
+])
+
+# --- Compile the model ---
+model.compile(optimizer='adam',
+              loss='categorical_crossentropy', # Good for multi-class classification
+              metrics=['accuracy'])
+
+model.summary()
+
+
+# 5. Train the Model
+print("\nStarting model training...")
+# An 'epoch' is one full pass through the entire training dataset
+history = model.fit(X_train, y_train,
+                    epochs=800,            # You can increase this if needed
+                    batch_size=32,
+                    validation_data=(X_test, y_test),
+                    verbose=1)
+print("Model training complete!")
+
+
+# 6. Evaluate the Model's Performance
+print("\nEvaluating model performance...")
+loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
+print(f'Test Accuracy: {accuracy * 100:.2f}%')
+print(f'Test Loss: {loss:.4f}')
+
+# 7. Save the Trained Model
+model_filename = 'isl_model.h5'
+model.save(model_filename)
+print(f"\nModel saved successfully as '{model_filename}'")
+print("You can now download this file from the Colab file explorer.")
